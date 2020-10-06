@@ -233,7 +233,7 @@ class StatusElement {
 		});
 
 		let _this = this;
-
+		this.logger = new LoggerModule.Logger('RWG3', 'StatusElement');
 		this.loadingTweenIn = {
 			opacity: 20,
 			duration: 1500,
@@ -246,11 +246,13 @@ class StatusElement {
 
 	startLoading() {
 		this.icon.ease(this.loadingTweenIn);
+		this.logger.debug ("Start loading on statusElement");
 	}
 
 	stopLoading() {
 		this.icon.remove_all_transitions();
 		this.icon.opacity = 255;
+		this.logger.debug ("Stop loading on statusElement");
 	}
 
 };

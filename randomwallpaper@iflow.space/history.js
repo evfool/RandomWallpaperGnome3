@@ -147,8 +147,13 @@ var HistoryController = class {
 		this.size = this._settings.get('history-length', 'int');
 		let deleteFile;
 		while (this.history.length > this.size) {
-			deleteFile = Gio.file_new_for_path(this.history.pop().path);
-			deleteFile.delete(null);
+			var pathToDelete = this.history.pop().path;
+			try {
+				deleteFile = Gio.file_new_for_path(pathToDelete);
+				deleteFile.delete(null);
+			} catch (e) {
+				this.logger.warn("Could not delete old picture "+ pathToDelete + " (" + e + ")");
+			}
 		}
 	}
 
